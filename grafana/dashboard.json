@@ -1,0 +1,186 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [{"color": "green", "value": null}]},
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "id": 1,
+      "title": "GPU Utilization %",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "expr": "gpu_utilization_percent{instance=~\"$instance\"}",
+          "legendFormat": "{{uuid}}"
+        }
+      ]
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [{"color": "green", "value": null}]},
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "id": 2,
+      "title": "GPU Memory Used",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "expr": "gpu_memory_used_bytes{instance=~\"$instance\"}",
+          "legendFormat": "{{uuid}}"
+        }
+      ]
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "yellow", "value": 80},
+              {"color": "red", "value": 90}
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "id": 3,
+      "title": "GPU Temperature",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "expr": "gpu_temperature_celsius{instance=~\"$instance\"}",
+          "legendFormat": "{{uuid}}"
+        }
+      ]
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [{"color": "green", "value": null}]},
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "id": 4,
+      "title": "GPU Power Draw",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "expr": "gpu_power_draw_watts{instance=~\"$instance\"}",
+          "legendFormat": "{{uuid}}"
+        }
+      ]
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"steps": [{"color": "green", "value": null}]},
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+      "id": 5,
+      "title": "GPU Fan Speed %",
+      "type": "timeseries",
+      "targets": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "expr": "gpu_fan_speed_percent{instance=~\"$instance\"}",
+          "legendFormat": "{{uuid}}"
+        }
+      ]
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {
+            "steps": [
+              {"color": "green", "value": null},
+              {"color": "red", "value": 0}
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+      "id": 6,
+      "title": "Collector Health (gpu_collector_up)",
+      "type": "stat",
+      "targets": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "expr": "gpu_collector_up{instance=~\"$instance\"}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["gpu", "nvidia", "prometheus"],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "hide": 0,
+        "label": "Instance",
+        "name": "instance",
+        "options": [],
+        "query": "label_values(gpu_count, instance)",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {"from": "now-6h", "to": "now"},
+  "timepicker": {},
+  "timezone": "",
+  "title": "GPU Fleet Overview",
+  "uid": "gpu-exporter",
+  "version": 1,
+  "refresh": "10s"
+}
