@@ -35,7 +35,7 @@ flowchart LR
         SMI[nvidia-smi binary]
     end
     SMI -->|CSV stdout| COL[collector.collect]
-    COL -->|list[GPUReading]| PAR[collector.parse_csv]
+    COL -->|"GPU readings"| PAR[collector.parse_csv]
     PAR --> METR[metrics.MetricsRegistry.update]
     METR -->|Gauges| REG[(Prometheus Registry)]
     APP[app.Exporter] -->|interval loop| COL
