@@ -35,14 +35,14 @@ flowchart LR
         SMI[nvidia-smi binary]
     end
     SMI -->|CSV stdout| COL[collector.collect]
-    COL -->|"GPU readings"| PAR[collector.parse_csv]
-    PAR --> METR[metrics.MetricsRegistry.update]
-    METR -->|Gauges| REG[(Prometheus Registry)]
+    COL -->|GPU readings| PAR[collector.parse_csv]
+    PAR --> METR[metrics update]
+    METR -->|Gauges| REG[Prometheus Registry]
     APP[app.Exporter] -->|interval loop| COL
-    APP -->|start_http_server| HTTP[/:9400/metrics\]
+    APP -->|start http server| HTTP[metrics endpoint 9400]
     REG --> HTTP
     PROM[Prometheus] -->|scrape| HTTP
-    PROM --> GRAF[Grafana dashboard.json]
+    PROM --> GRAF[Grafana dashboard]
 ```
 
 | Layer | Module | Responsibility |
